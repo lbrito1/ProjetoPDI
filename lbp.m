@@ -1,11 +1,27 @@
+%=================================================
+%     Local Binary Pattern (LBP)
+%     
+%     Setup: 
+%      circulo     R=1 
+%      8 pixels    B=8
+%      limiar LTP  T=9
+%
+%     Entrada:
+%      im: imagem (double)
+%      blockdim: dimensão do bloco (e.g. 8)
+%      type: "lbp", "llbp" ou "ulbp"     
+%      bin: 59 bins dos padrões binários uniformes
+%
+%     Saída:
+%      {lbpval, lbphist} (fixo em 59 bins
+%      para imagens de 8bits (0-255))   
+%     
+%
+%=================================================
 function lbp_hist = lbp(im, blockdim, type, bin)
 
-% Saída: {lbpval, lbphist}
-% Fixo em 59 bins para imagens de 8 bits (0-255)
 lbp_hist = {zeros(blockdim-2,blockdim-2), zeros[1,59]}; 
-
-% limiar do LTP
-T = 9;      
+T = 9;      % limiar do LTP
 
 for x = 2:blockdim-1
       dx = x - 1; 

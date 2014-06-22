@@ -1,6 +1,3 @@
-
-%     Projeto PDI - Leonardo Brito
-
 %=================================================
 %     Local Ternary Pattern (LTP)
 %     

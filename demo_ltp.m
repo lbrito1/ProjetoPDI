@@ -10,11 +10,15 @@ img_res = size(img);
 imshow(img)
 img = double(img);
 
-% Calcular LBP da imgagem
-l = lbp(img, img_res);
+
+% Calcular LTP da imgagem
+%l = ltp(img, img_res);
+
+%59 bins do LBP
+bins = uniform_patterns(8);
 
 % Normaliza e salva imagem (apenas para debug)
-l_norm = l/255;
-imwrite(l_norm, 'lbp_out.png');
+%l_norm = l/255;
+%imwrite(l_norm, 'lbp_out.png');
 
 %W = computeGradient(block)

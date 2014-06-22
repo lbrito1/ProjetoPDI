@@ -1,0 +1,12 @@
+diary off
+Im = imread('CarData/TrainImages/pos-0.pgm');
+imshow(Im)
+Im = double(Im);
+% Bloco 8x8 ao redor do ponto xy
+block = Im(1:8, 1:8)
+
+% Calcular LBP usando os 8-vizinhos do ponto xy
+l = lbp(block, 8, 8)
+
+% 
+W = computeGradient(block)

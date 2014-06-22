@@ -8,8 +8,8 @@
 %
 %     Entrada:
 %      im: imagem (double)
-%      blockdim: dimensão do bloco (e.g. 8)
-%      type: "lbp", "llbp" ou "ulbp"     
+%      block: (x,y,z) posição 0,0 e dimensão (e.g. (0,0,8))
+%      type: "lbp", "rlbp", "llbp" ou "ulbp"     
 %      bin: 59 bins dos padrões binários uniformes
 %
 %     Saída:
@@ -18,15 +18,15 @@
 %     
 %
 %=================================================
-function lbp_hist = lbp(im, blockdim, type, bin, robust)
+function lbp_hist = lbp(im, block, type, bin)
 
-lbp_hist = {zeros(blockdim-2,blockdim-2), zeros([1,59])}; 
+lbp_hist = {zeros(block(3)-2,block(3)-2), zeros([1,59])}; 
 T = 9;      % limiar do LTP
 
-for x = 2:blockdim-1
+for x = block(1)+2:block(3)-1
       dx = x - 1; 
     
-      for y = 2:blockdim-1
+      for y = block(2)+2:block(3)-1
             dy = y - 1;
         
             %   sb = subbloco 3x3 
@@ -53,11 +53,13 @@ for x = 2:blockdim-1
             switch (type)
                   case "lbp" 
                         deltaP = (neighbors - im(x, y)) >= 0;
+                  case "rlbp" 
+                        deltaP = (neighbors - im(x, y)) >= 0;
                   case "ulbp"
                         deltaP = (neighbors - im(x, y)) >= T;
                   case "llbp"
                         deltaP = -(neighbors - im(x, y)) >= T;
-            endswitch
+            endswitch;
                   
 
             % find = índices dos elementos não-nulos do vetor
@@ -67,9 +69,10 @@ for x = 2:blockdim-1
             
             lbp_val = sum(2.^s);         
             
-            if(robust)
-                  lbp_val = min(lbp_val,255-lbp_val);
-            endif;
+            switch (type)
+                  case "rlbp"
+                        lbp_val = min(lbp_val,255-lbp_val);
+            endswitch;
             
             % valor final LBP
             lbp_hist{1}(x-1, y-1) = lbp_val;

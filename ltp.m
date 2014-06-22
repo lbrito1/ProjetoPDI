@@ -14,5 +14,4 @@ function ltp_hist = ltp(im, blockdim, bin)
       h = ltp_hist = [llbp{2}, ulbp{2}];
       bar(ltp_hist,1.0);      %produz histograma
       colormap(hsv(12));
-
 endfunction;

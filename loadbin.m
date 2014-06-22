@@ -3,7 +3,7 @@ function bin = loadbin
 bin = uniform_patterns(8) + 1;
 endfunction;
 
-%'CarData/TrainImages/pos-0.pgm'
+%imread('CarData/TrainImages/pos-0.pgm')
 % Calcular LTP da imgagem: 
 %l = ltp(img, 8);
 

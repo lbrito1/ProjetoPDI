@@ -1,6 +1,6 @@
 function bin = loadbin
 %59 bins do LBP
-bin = uniform_patterns(8);
+bin = uniform_patterns(8) + 1;
 endfunction;
 
 %'CarData/TrainImages/pos-0.pgm'

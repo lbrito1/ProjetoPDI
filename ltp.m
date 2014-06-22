@@ -7,8 +7,10 @@
 %      limiar LTP  T=9
 %
 %=================================================
-function ltp_data = ltp(im, blockdim)
-llbp = lbp(im, blockdim, "llbp");
-ulbp = lbp(im, blockdim, "ulbp");
-ltp_data = {llbp, ulbp};
+function ltp_hist = ltp(im, blockdim, bin)
+      llbp = lbp(im, blockdim, "llbp", bin);
+      ulbp = lbp(im, blockdim, "ulbp", bin);
+
+      ltp_hist = llbp{2} + ulbp{2};
+      
 endfunction;

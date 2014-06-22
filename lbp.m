@@ -20,7 +20,7 @@
 %=================================================
 function lbp_hist = lbp(im, blockdim, type, bin)
 
-lbp_hist = {zeros(blockdim-2,blockdim-2), zeros[1,59]}; 
+lbp_hist = {zeros(blockdim-2,blockdim-2), zeros([1,59])}; 
 T = 9;      % limiar do LTP
 
 for x = 2:blockdim-1
@@ -68,7 +68,7 @@ for x = 2:blockdim-1
             lbp_hist{1}(x-1, y-1) = lbp_val = sum(2.^s);         
             
             % atualizar histograma
-            lbp_hist{2}(lbp_val)++;
+            lbp_hist{2}(bin(lbp_val+1)) += 1;
       end;
 end;
         

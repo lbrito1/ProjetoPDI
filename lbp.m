@@ -23,10 +23,16 @@ function lbp_hist = lbp(im, block, type, bin)
 lbp_hist = {zeros(block(3)-2,block(3)-2), zeros([1,59])}; 
 T = 9;      % limiar do LTP
 
-for x = block(1)+2:block(3)-1
+xs = block(1)+2;
+xe = xs + block(3)-1;
+
+ys = block(2)+2;
+ye = ys + block(3)-1; 
+
+for x = xs:xe
       dx = x - 1; 
     
-      for y = block(2)+2:block(3)-1
+      for y = ys:ye;
             dy = y - 1;
         
             %   sb = subbloco 3x3 

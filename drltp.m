@@ -20,13 +20,19 @@ function drltp_data = drltp(im, block, bin)
       % 2: calcular hURLBP e hLRLBP
       grad = compute_gradient(im, block);
       hlrlbp = zeros([1,(2^8)-1]);      % 0 a 2^B-1
+      hurlbp = zeros([1,(2^8)-1]);      % 1 a 2^B
+      
       for s=1:2^8-1
             for x=1:block(3)-1
                   for y=1:block(3)-1
-                        hlrlbp(s) += grad(x,y)*(lrlbp(x,y) == s);
+                        if (s!=2^8)
+                              hlrlbp(s) += grad(x,y)*(lrlbp(x,y) == s);
+                        elseif (s!=1)
+                              hurlbp(s) += grad(x,y)*(urlbp(x,y) == s);
+                        endif;
                   end;
             end;
       end;
       
-drltp_data = lrlbp;
+drltp_data = hlrlbp;
 endfunction;

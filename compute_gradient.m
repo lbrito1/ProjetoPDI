@@ -22,9 +22,16 @@ h1 = [-1 0 1];
 h2 = [1 0 -1]';
 W = zeros(8, 8);
 
-for x = block(1)+2:block(3)
+xs = block(1)+2;
+xe = xs + block(3)-1;
+
+ys = block(2)+2;
+ye = ys + block(3)-1; 
+
+for x = xs:xe
       dx = x - 1; 
-      for y = block(2)+2:block(3)
+    
+      for y = ys:ye;
             dy = y - 1;
                   
             ROIx = im(x, dy:(dy + 2));

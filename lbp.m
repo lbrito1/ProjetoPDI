@@ -81,4 +81,3 @@ for x = block(1)+2:block(3)-1
             lbp_hist{2}(bin(lbp_val+1)) += 1;
       end;
 end;
-        

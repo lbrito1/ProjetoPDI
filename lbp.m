@@ -84,6 +84,8 @@ for x = xs:xe
             lbp_hist{1}(x-1, y-1) = lbp_val;
             
             % atualizar histograma
-            lbp_hist{2}(bin(lbp_val+1)) += 1;
+            if (bin(lbp_val+1)!=0) 
+                  lbp_hist{2}(bin(lbp_val+1)) += 1;
+            endif;
       end;
 end;

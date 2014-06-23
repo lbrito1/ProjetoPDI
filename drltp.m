@@ -22,11 +22,15 @@ function drltp_data = drltp(im, block, bin)
       hlrlbp = zeros([1,(2^8)-1]);      % 0 a 2^B-1
       hurlbp = zeros([1,(2^8)-1]);      % 1 a 2^B
       
+      hudlbp = zeros([1,(2^8)-1]);      % 0 a 2^B-1
+      hldlbp = zeros([1,(2^8)-1]);      % 1 a 2^B
+      
       for s=1:2^8-1
             for x=1:block(3)-2
                   for y=1:block(3)-2
                         if (s!=2^8)
                               hlrlbp(s) += grad(x,y)*(lrlbp(x,y) == s);
+                              hudlbp(s) += grad(x,y)*
                         elseif (s!=1)
                               hurlbp(s) += grad(x,y)*(urlbp(x,y) == s);
                         endif;

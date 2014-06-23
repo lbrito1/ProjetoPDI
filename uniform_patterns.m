@@ -12,7 +12,7 @@ newMax = samples*(samples-1) + 3;
       bin(i+1) = index;
       index = index + 1;
     else
-      bin(i+1) = newMax - 1;
+      bin(i+1) = 0;
     end
   end
 end

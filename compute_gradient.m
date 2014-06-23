@@ -20,13 +20,13 @@ function W = compute_gradient(im, block)
 
 h1 = [-1 0 1];
 h2 = [1 0 -1]';
-W = zeros(8, 8);
+W = zeros(6, 6);
 
 xs = block(1)+2;
-xe = xs + block(3)-1;
+xe = xs + block(3)-3;
 
 ys = block(2)+2;
-ye = ys + block(3)-1; 
+ye = ys + block(3)-3; 
 
 for x = xs:xe
       dx = x - 1; 

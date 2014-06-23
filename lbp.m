@@ -24,10 +24,10 @@ lbp_hist = {zeros(block(3)-2,block(3)-2), zeros([1,59])};
 T = 9;      % limiar do LTP
 
 xs = block(1)+2;
-xe = xs + block(3)-1;
+xe = xs + block(3)-3;
 
 ys = block(2)+2;
-ye = ys + block(3)-1; 
+ye = ys + block(3)-3; 
 
 for x = xs:xe
       dx = x - 1; 

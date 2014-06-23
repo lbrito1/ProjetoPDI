@@ -30,10 +30,10 @@ function drltp_data = drltp(im, block, bin)
                   for y=1:block(3)-2
                         if (s!=2^8)
                               hlrlbp(s) += grad(x,y)*(lrlbp(x,y) == s);
-                              hldlbp(s) += grad(x,y)*sigma_hldlbp(lambda_hldlbp(ulbp{1},llbp{1}),s)
+                              hldlbp(s) += grad(x,y)*sigma_hldlbp(lambda_hldlbp(ulbp{1},llbp{1}),s);
                         elseif (s!=1)
                               hurlbp(s) += grad(x,y)*(urlbp(x,y) == s);
-                              hudlbp(s) += grad(x,y)*sigma_hudlbp(lambda_hudlbp(ulbp{1},llbp{1}),s)
+                              hudlbp(s) += grad(x,y)*sigma_hudlbp(lambda_hudlbp(ulbp{1},llbp{1}),s);
                         endif;
                   end;
             end;
@@ -43,6 +43,7 @@ function drltp_data = drltp(im, block, bin)
       hldlbp = abs(hldlbp);
       hudlbp = abs(hudlbp);
       
-      %drltp_data = hurlbp;
+      drltp_data = {hurlbp, hlrlbp, hldlbp, hudlbp};
+      
       
 endfunction;

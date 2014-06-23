@@ -3,4 +3,5 @@ function lambda = lambda_hudlbp(p,q)
             lambda = p;
       else
             lambda = -q;
+      endif;
 endfunction;

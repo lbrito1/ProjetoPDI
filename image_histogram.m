@@ -14,7 +14,7 @@
 %
 %      Entrada:
 %      * im: imagem
-%      * bin: padrões uniformes
+%      * bin: padrões uniformessss
 %      * type: tipo de histograma a ser calculado:
 %            - LTP: concatenação [LLBP, ULBP]
 %            - RLTP: concatenação [LRLBP, URLBP]
@@ -33,18 +33,20 @@ function h = image_histogram(im, bin, type)
                         block_hist_list{x} = ltp(blocks{x}, "rltp", bin);
                   end;
             case "drltp"
+                  number_of_blocks = numel(blocks)
                   for x = 1:numel(blocks)
+                        %printf("\nDRLTP: %d/%d",x,numel(blocks));
                         block_hist_list{x} = drltp(blocks{x}, bin);
                   end;
       endswitch;
       
       idx = 1;
       for x = 1:numel(block_hist_list)
-      x
             blockhist = block_hist_list{x};
             for y = 1:numel(blockhist)
-            y
                   h(idx++) = blockhist(y);
             end;
       end;
+      
+      save img_hist.txt h -append
 endfunction;

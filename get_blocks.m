@@ -1,7 +1,7 @@
 %=================================================
 %           Segmentar imagem em blocos
 %      
-%      Obter todos os blocos 8x8 da imagem.
+%      Obter lista de blocos 8x8 da imagem.
 %
 %      Os blocos são deslocados com overlap de 50% em
 %      ambas as direções, i.e. as posições dos blocos
@@ -15,22 +15,27 @@ function b = get_blocks(im)
       
       blockdim = 8;
 
-      imres_x = size(img)(2); % res horizontal
-      imres_y = size(img)(1); % res vertical
+      imres_x = size(im)(2) % res horizontal
+      imres_y = size(im)(1) % res vertical
 
-      x_step = y_step = blockdim/2; % 50% overlap
+      x_step = y_step = blockdim/2 % 50% overlap
 
-      nblocks_x = imres_x/x_step;
-      nblocks_y = imres_y/y_step;
+      nblocks_x = imres_x/x_step
+      nblocks_y = imres_y/y_step
+      nblocks = nblocks_x*nblocks_y
       
-      % num total de blocos = 8*nblocks_x 8*nblocks_y
-      b = zeros([blockdim*nblocks_x, blockdim*nblocks_y]);    
+      
+      
+      b = cell([1,nblocks]); % lista de blocos    
+      
+      size(b)
       
       idx = 1;
-      
-      for x = 1:x_step
-            for y=1:y_step
-                  b(idx++) = im(x:(x+blockdim), y:(y+blockdim));
+      for y = 0:nblocks_y-2
+            for x = 0:nblocks_x-2
+                  bl_x = max(x*x_step,1)
+                  bl_y = max(y*y_step,1)
+                  b{idx++} = im(bl_y:(bl_y+blockdim),bl_x:(bl_x+blockdim));
             end;
       end;
 endfunction;

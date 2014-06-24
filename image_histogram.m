@@ -22,5 +22,6 @@
 %
 %=================================================
 function h = image_histogram(im, bin, type)
-
+      
+      
 endfunction;

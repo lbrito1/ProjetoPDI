@@ -22,6 +22,13 @@
 %
 %=================================================
 function h = image_histogram(im, bin, type)
-      
-      
+      blocks = get_blocks(im);
+      switch (type)
+            case "ltp"
+                  for x = 1:numel(blocks)
+                        h{x} = ltp(blocks{x}, "ltp", bin);
+                  end;
+            case "rltp"
+            case "drltp"
+      endswitch;
 endfunction;

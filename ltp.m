@@ -31,6 +31,6 @@ function h = ltp(block, type, bin)
             case "ltp"
                   h = ltp_hist = [llbp{2}, ulbp{2}];
       endswitch;
-      bar(ltp_hist,1.0);      %produz histograma
-      colormap(hsv(12));
+      %bar(ltp_hist,1.0);      %produz histograma
+      %colormap(hsv(12));
 endfunction;

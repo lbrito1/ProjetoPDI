@@ -15,27 +15,29 @@ function b = get_blocks(im)
       
       blockdim = 8;
 
-      imres_x = size(im)(2) % res horizontal
-      imres_y = size(im)(1) % res vertical
+      imres_x = size(im)(2); % res horizontal
+      imres_y = size(im)(1); % res vertical
 
-      x_step = y_step = blockdim/2 % 50% overlap
+      x_step = y_step = blockdim/2; % 50% overlap
 
-      nblocks_x = imres_x/x_step
-      nblocks_y = imres_y/y_step
-      nblocks = nblocks_x*nblocks_y
-      
-      
+      nblocks_x = imres_x/x_step;
+      nblocks_y = imres_y/y_step;
+      nblocks = nblocks_x*nblocks_y;
       
       b = cell([1,nblocks]); % lista de blocos    
-      
-      size(b)
       
       idx = 1;
       for y = 0:nblocks_y-2
             for x = 0:nblocks_x-2
-                  bl_x = max(x*x_step,1)
-                  bl_y = max(y*y_step,1)
-                  b{idx++} = im(bl_y:(bl_y+blockdim),bl_x:(bl_x+blockdim));
+                  bl_x = max(x*x_step,1);
+                  bl_y = max(y*y_step,1);
+                  b{idx++} = im(bl_y:(bl_y+blockdim-1),bl_x:(bl_x+blockdim-1));
             end;
       end;
+      
+      %temporário - padding dos blocos
+      for idx=idx:numel(b) 
+            b{idx} = zeros([8,8]);
+      end;
+      
 endfunction;

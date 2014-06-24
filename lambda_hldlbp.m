@@ -1,4 +1,4 @@
-function lambda = lambda_hudlbp(p,q)
+function lambda = lambda_hldlbp(p,q)
       if (p>=q)
             lambda = q;
       else

@@ -26,9 +26,25 @@ function h = image_histogram(im, bin, type)
       switch (type)
             case "ltp"
                   for x = 1:numel(blocks)
-                        h{x} = ltp(blocks{x}, "ltp", bin);
+                        block_hist_list{x} = ltp(blocks{x}, "ltp", bin);
                   end;
             case "rltp"
+                  for x = 1:numel(blocks)
+                        block_hist_list{x} = ltp(blocks{x}, "rltp", bin);
+                  end;
             case "drltp"
+                  for x = 1:numel(blocks)
+                        block_hist_list{x} = drltp(blocks{x}, bin);
+                  end;
       endswitch;
+      
+      idx = 1;
+      for x = 1:numel(block_hist_list)
+      x
+            blockhist = block_hist_list{x};
+            for y = 1:numel(blockhist)
+            y
+                  h(idx++) = blockhist(y);
+            end;
+      end;
 endfunction;

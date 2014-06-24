@@ -43,7 +43,6 @@ function drltp_data = drltp(block, bin)
       hldlbp = abs(hldlbp);
       hudlbp = abs(hudlbp);
       
-      drltp_data = {hurlbp, hlrlbp, hldlbp, hudlbp};
-      
-      
+      % Concatenação
+      drltp_data = [hurlbp, hlrlbp, hldlbp, hudlbp];
 endfunction;

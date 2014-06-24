@@ -7,8 +7,7 @@
 %      limiar LTP  T=9
 %
 %     Entrada:
-%      im: imagem (double)
-%      block: (x,y,z) posição 0,0 e dimensão (e.g. (0,0,8))
+%      block: bloco 8x8
 %      type: "lbp", "rlbp", "llbp" ou "ulbp"     
 %      bin: 59 bins dos padrões binários uniformes
 %
@@ -18,29 +17,22 @@
 %     
 %
 %=================================================
-function lbp_hist = lbp(im, block, type, bin)
+function lbp_hist = lbp(block, type, bin)
 
-lbp_hist = {zeros(block(3)-2,block(3)-2), zeros([1,59])}; 
+lbp_hist = {zeros(8), zeros([1,59])}; 
 T = 9;      % limiar do LTP
 
-xs = block(1)+2;
-xe = xs + block(3)-3;
-
-ys = block(2)+2;
-ye = ys + block(3)-3; 
-
-for x = xs:xe
-      dx = x - 1; 
-    
-      for y = ys:ye;
-            dy = y - 1;
+for x = 2:7
+    dx = x - 1; 
+    for y = 2:7
+        dy = y - 1;
         
             %   sb = subbloco 3x3 
             %   e.g.
             %         7   8   9
             %         1   2   3
             %         4   5   6
-            sb = im(dx:(dx + 2), dy:(dy + 2));
+            sb = block(dx:(dx + 2), dy:(dy + 2));
             
             % neighbors = vizinhos ordenados em sentido anti-horário
             % e.g.  1   4   7   8   9   6   3   2
@@ -58,13 +50,13 @@ for x = xs:xe
             % LLBP: s(z) = 1 se -z >= T, senão 0
             switch (type)
                   case "lbp" 
-                        deltaP = (neighbors - im(x, y)) >= 0;
+                        deltaP = (neighbors - block(x, y)) >= 0;
                   case "rlbp" 
-                        deltaP = (neighbors - im(x, y)) >= 0;
+                        deltaP = (neighbors - block(x, y)) >= 0;
                   case "ulbp"
-                        deltaP = (neighbors - im(x, y)) >= T;
+                        deltaP = (neighbors - block(x, y)) >= T;
                   case "llbp"
-                        deltaP = -(neighbors - im(x, y)) >= T;
+                        deltaP = -(neighbors - block(x, y)) >= T;
             endswitch;
                   
 

@@ -9,16 +9,16 @@
 %     DRLTP = concatenação [LRLBP, URLBP, LDLBP, UDLBP]
 %
 %=================================================
-function drltp_data = drltp(im, block, bin)
+function drltp_data = drltp(block, bin)
       % 1: calcular LRLBP e URLBP
-      llbp = lbp(im, block, "llbp", bin);
-      ulbp = lbp(im, block, "ulbp", bin);
+      llbp = lbp(block, "llbp", bin);
+      ulbp = lbp(block, "ulbp", bin);
 
       lrlbp = min(ulbp{1}, llbp{1});
       urlbp = max(ulbp{1}, llbp{1});
       
       % 2: calcular hURLBP, hLRLBP, hldlbp e hudlbp
-      grad = compute_gradient(im, block);
+      grad = compute_gradient(block);
       hlrlbp = zeros([1,(2^8)-1]);      % 0 a 2^B-1
       hurlbp = zeros([1,(2^8)-1]);      % 1 a 2^B
       
@@ -26,8 +26,8 @@ function drltp_data = drltp(im, block, bin)
       hldlbp = zeros([1,(2^8)-1]);      % 1 a 2^B
       
       for s=1:2^8-1
-            for x=1:block(3)-2
-                  for y=1:block(3)-2
+            for x=1:6
+                  for y=1:6
                         if (s!=2^8)
                               hlrlbp(s) += grad(x,y)*(lrlbp(x,y) == s);
                               hldlbp(s) += grad(x,y)*sigma_hldlbp(lambda_hldlbp(ulbp{1},llbp{1}),s);

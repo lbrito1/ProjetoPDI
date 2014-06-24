@@ -7,9 +7,9 @@
 %      limiar LTP  T=9
 %
 %=================================================
-function h = ltp(im, block, type, bin)
-      llbp = lbp(im, block, "llbp", bin);
-      ulbp = lbp(im, block, "ulbp", bin);
+function h = ltp(block, type, bin)
+      llbp = lbp(block, "llbp", bin);
+      ulbp = lbp(block, "ulbp", bin);
       
       switch(type)
             case "rltp"
@@ -20,8 +20,12 @@ function h = ltp(im, block, type, bin)
                   hu = zeros([1,59]);
                   
                   for x=1:numel(lrlbp)
-                        hl(bin(lrlbp(x)+1)) += 1;
-                        hu(bin(urlbp(x)+1)) += 1;
+                        if (p1 = bin(lrlbp(x)+1)) != 0
+                              hl(p1) += 1;
+                        endif;
+                        if (p2 = bin(urlbp(x)+1)) != 0
+                              hu(p2) += 1;
+                        endif;
                   end;
                   h = ltp_hist = [hl,hu];
             case "ltp"

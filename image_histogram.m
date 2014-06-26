@@ -46,7 +46,6 @@ function h = image_histogram(im, bin, type)
       
       idx = 1;
       for x = 1:numel(block_hist_list)
-      x
             blockhist = block_hist_list{x};
             normV = norm(blockhist,1);
             if normV > 0,  % Or some other threshold, like EPS

@@ -50,7 +50,7 @@ for x = 2:7
             % LLBP: s(z) = 1 se -z >= T, senão 0
             switch (type)
                   case "lbp" 
-                        deltaP = (neighbors - block(x, y)) >= 0
+                        deltaP = (neighbors - block(x, y)) >= 0;
                   case "rlbp" 
                         deltaP = (neighbors - block(x, y)) >= 0;
                   case "ulbp"

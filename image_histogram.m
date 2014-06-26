@@ -48,8 +48,13 @@ function h = image_histogram(im, bin, type)
       for x = 1:numel(block_hist_list)
       x
             blockhist = block_hist_list{x};
-            blockhist = blockhist/norm(blockhist, 1)
-            blockhist = sqrt(blockhist);
+            normV = norm(blockhist,1);
+            if normV > 0,  % Or some other threshold, like EPS
+                  uV = blockhist/normV;
+            else
+                  uV = blockhist;  % Do nothing since it's basically 0
+            end;
+            blockhist = sqrt(uV);
             for y = 1:numel(blockhist)
                   h(idx++) = blockhist(y);
             end;

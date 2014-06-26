@@ -1,5 +1,5 @@
 %=================================================
-%     Discriminative Robust Local Ternary Pattern (DRLTP)
+%           Discriminative Robust Local Ternary Pattern (DRLTP)
 %
 %     Setup: 
 %      circulo     R=1 

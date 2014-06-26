@@ -1,5 +1,5 @@
 %=================================================
-%     Local Ternary Pattern (LTP)
+%           Local Ternary Pattern (LTP)
 %
 %     Setup: 
 %      circulo     R=1 

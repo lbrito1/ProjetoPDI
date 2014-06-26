@@ -26,7 +26,11 @@ function h = image_histogram(im, bin, type)
       switch (type)
             case "ltp"
                   for x = 1:numel(blocks)
+                  %x
+                  %number_of_blocks = numel(blocks)
+                  %blocks{x}
                         block_hist_list{x} = ltp(blocks{x}, "ltp", bin);
+                        %block_hist_list{x}
                   end;
             case "rltp"
                   for x = 1:numel(blocks)
@@ -42,11 +46,14 @@ function h = image_histogram(im, bin, type)
       
       idx = 1;
       for x = 1:numel(block_hist_list)
+      x
             blockhist = block_hist_list{x};
+            blockhist = blockhist/norm(blockhist, 1)
+            blockhist = sqrt(blockhist);
             for y = 1:numel(blockhist)
                   h(idx++) = blockhist(y);
             end;
       end;
       
-      save img_hist.txt h -append
+      %save img_hist.txt h -append
 endfunction;

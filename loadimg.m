@@ -5,5 +5,6 @@ function imgs = loadimg(path)
       for (i = 1:numel(d))
             i
             imgs{i} = imread([path,d(i).name]);
+            imgs{i} = double(imgs{i});
       end;
 endfunction;

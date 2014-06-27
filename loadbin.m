@@ -1,3 +1,12 @@
+%=================================================
+%
+%
+%                   PROJETO PDI
+%         aluno: Leonardo Mendes Primo Brito
+%
+%
+%
+%=================================================
 function bin = loadbin
 %59 bins do LBP
 bin = uniform_patterns(8);

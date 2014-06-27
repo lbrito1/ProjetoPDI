@@ -1,4 +1,12 @@
 %=================================================
+%
+%
+%                   PROJETO PDI
+%         aluno: Leonardo Mendes Primo Brito
+%
+%
+%
+%=================================================
 %           Calcular histograma de uma imagem
 %     
 %      Calcular o histograma dos blocos 8x8 de uma 

@@ -1,4 +1,12 @@
-% Carregar todas as imagens duma pasta
+%=================================================
+%
+%
+%                   PROJETO PDI
+%         aluno: Leonardo Mendes Primo Brito
+%
+%
+%
+%=================================================
 function imgs = loadimg(path)
       d = dir([path,"*.pgm"]);
       imgs = cell(1,numel(d));

@@ -1,4 +1,12 @@
 %=================================================
+%
+%
+%                   PROJETO PDI
+%         aluno: Leonardo Mendes Primo Brito
+%
+%
+%
+%=================================================
 %           Segmentar imagem em blocos
 %      
 %      Obter lista de blocos 8x8 da imagem.

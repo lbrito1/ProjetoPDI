@@ -1,3 +1,12 @@
+%=================================================
+%
+%
+%                   PROJETO PDI
+%         aluno: Leonardo Mendes Primo Brito
+%
+%
+%
+%=================================================
 function bin = uniform_patterns(samples)
 
 bin = 0:2^samples-1;

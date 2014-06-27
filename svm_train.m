@@ -1,4 +1,12 @@
-%Treinamento
+%=================================================
+%
+%
+%                   PROJETO PDI
+%         aluno: Leonardo Mendes Primo Brito
+%
+%
+%
+%=================================================
 function svm = svm_train(tipo,bin)
       imgs = load_images('treinamento');
       for n=1:numel(imgs)

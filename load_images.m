@@ -1,3 +1,12 @@
+%=================================================
+%
+%
+%                   PROJETO PDI
+%         aluno: Leonardo Mendes Primo Brito
+%
+%
+%
+%=================================================
 function imlist = load_images(type)
       switch(type)
             case "treinamento"

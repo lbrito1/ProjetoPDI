@@ -1,3 +1,12 @@
+%=================================================
+%
+%
+%                   PROJETO PDI
+%         aluno: Leonardo Mendes Primo Brito
+%
+%
+%
+%=================================================
 function sigma = sigma_hldlbp(m,n)
       if ((m==n) && (n>=0))
             sigma = 1;

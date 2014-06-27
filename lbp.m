@@ -1,4 +1,12 @@
 %=================================================
+%
+%
+%                   PROJETO PDI
+%         aluno: Leonardo Mendes Primo Brito
+%
+%
+%
+%=================================================
 %     Local Binary Pattern (LBP)
 %     
 %     Setup: 

@@ -1,4 +1,12 @@
 %=================================================
+%
+%
+%                   PROJETO PDI
+%         aluno: Leonardo Mendes Primo Brito
+%
+%
+%
+%=================================================
 %           Segmentar imagem em janelas
 %      
 %      Obter lista de janelas 100x40 da imagem.

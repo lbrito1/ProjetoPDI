@@ -1,4 +1,12 @@
 %=================================================
+%
+%
+%                   PROJETO PDI
+%         aluno: Leonardo Mendes Primo Brito
+%
+%
+%
+%=================================================
 %      Calcular histogramas de imagem de teste
 %      utilizando janelas     
 %     

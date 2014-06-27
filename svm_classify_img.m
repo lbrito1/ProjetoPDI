@@ -1,3 +1,12 @@
+%=================================================
+%
+%
+%                   PROJETO PDI
+%         aluno: Leonardo Mendes Primo Brito
+%
+%
+%
+%=================================================
 function svm = svm_classify_img(tipo,model,x,y,img,bin)
       x_step = 5;
       y_step = 2;

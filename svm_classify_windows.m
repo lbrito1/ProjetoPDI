@@ -1,3 +1,12 @@
+%=================================================
+%
+%
+%                   PROJETO PDI
+%         aluno: Leonardo Mendes Primo Brito
+%
+%
+%
+%=================================================
 function svm = svm_classify_windows(model, window, type, bin)
    %   switch (type)
   %          case "ltp"

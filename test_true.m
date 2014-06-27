@@ -1,3 +1,12 @@
+%=================================================
+%
+%
+%                   PROJETO PDI
+%         aluno: Leonardo Mendes Primo Brito
+%
+%
+%
+%=================================================
 function svm = test_true(tipo)
       bin = loadbin;
       model = svm_train(tipo,bin);

@@ -1,4 +1,12 @@
 %=================================================
+%
+%
+%                   PROJETO PDI
+%         aluno: Leonardo Mendes Primo Brito
+%
+%
+%
+%=================================================
 %           Discriminative Robust Local Ternary Pattern (DRLTP)
 %
 %     Setup: 

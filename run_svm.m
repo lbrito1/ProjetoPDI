@@ -7,11 +7,14 @@ function svm = run_svm(treinamento, tipo)
       end;
       bin = loadbin;
 
-      for n=1:100
+      for n=1:10
             n
-            features{n} =  image_histogram(imgs{n},bin,tipo);
+            %features{n} =  image_histogram(imgs{n},bin,tipo);
+            ft(n,:) =  image_histogram(imgs{n},bin,"ltp");
       end;
+      
 
-      group = [ones(50, 1), zeros(50, 1)];
-      svm = svmtrain(features,group);
+      %group = [ones(50, 1), zeros(50, 1)];
+      group = [zeros(5,1) ones(5,1)];
+      svm = svmtrain(ft,group);
 endfunction;

@@ -62,15 +62,11 @@ Algumas imagens do conjunto tiveram de ser inutilizadas por conta da posição d
 %    \caption{\textit{Speech synthesizer based on a formant synthesis model.}}
 %\end{figure}
 
-
-The selection of good units for synthesis requires an appropriate definition of the target and concatenation costs and effective training of them. Each target and unit in the database has a pitch, power and duration. The closest they are, the best the match. Getting a wider view, the same can be said about a sequence of targets, denoted by $t^n = (t_1, ..., t_n)$, and units, $u^n = (u_1, ..., u_n)$, where each $t_i$ matches a $u_i$, for $i = 1, ..., n$. Now it is possible to properly define the target cost and concatenation cost.
-
-The target cost is defined as a weighted sum of each individual target cost of the target $t_i$ to the instance $u_{ij}$ of the unit $u_i$.
-
-\begin{equation}
-    \label{eq:target_cost}
-    C^t(t_i,u_i) = \displaystyle\sum_{j=1}^{p} w^t_j C^t_j(t_i,u_i)
-\end{equation}
+%EQUACAO
+%\begin{equation}
+%    \label{eq:target_cost}
+%    C^t(t_i,u_i) = \displaystyle\sum_{j=1}^{p} w^t_j C^t_j(t_i,u_i)
+%\end{equation}
 
 
 \section{CONCLUSÃO}

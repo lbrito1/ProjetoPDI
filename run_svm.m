@@ -15,6 +15,6 @@ function svm = run_svm(treinamento, tipo)
       
 
       %group = [ones(50, 1), zeros(50, 1)];
-      group = [zeros(5,1) ones(5,1)];
+      group = [zeros(1,5) ones(1,5)]';
       svm = svmtrain(ft,group);
 endfunction;

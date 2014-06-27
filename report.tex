@@ -5,7 +5,7 @@
 
 % Pacotes necessários
 \usepackage{times}
-\usepackage[utf8]{inputenc}
+\usepackage{inputenc}
 \usepackage[english]{babel}
 \usepackage[a4paper,margin=2cm,columnsep=1cm]{geometry}
 \usepackage{authblk}
@@ -54,6 +54,23 @@ Por conta de contingências de tempo, não foi possível replicar perfeitamente 
 
 Algumas imagens do conjunto tiveram de ser inutilizadas por conta da posição das janelas onde encontravam-se os carros. Carros com oclusão parcial, na fronteira da imagem, resultam em janelas com valores além das dimensões da imagem. Descontados esses casos, obtemos um total de 71 imagens para teste. Cada imagem possui ao menos um carro, portanto foram testadas 71 janelas com resultado positivo esperado. Devido à já mencionada restrição de tempo, apenas cerca de 20 janelas negativas (sem carro) foram testadas para falsos-positivos.
 
+Seguindo a técnica descrita acima, obtemos os seguintes resultados:
+
+\begin{table}[h]
+      \begin{tabular}{llllll}
+            & VP  & FP    & VN    & FN  & ACERTO \\
+      DRLBP & 100 & 22,73 & 77,27 & 0   & 88,64  \\
+      LBP   & 0   & 81,82 & 81,82 & 100 & 40,9   \\
+      DRLTP & 100 & -     & -     & 0   & 100    \\
+      LTP   & 83  & -     & -     & 17  & 83    
+      \end{tabular}
+\end{table}
+
+Onde VP = verdadeiro positivo, FP = falso positivo, VN = verdadeiro negativo, FN = falso negativo e ACERTO = taxa de acerto. Todos os valores são porcentagens.
+
+Mesmo dadas as limitações da metodologia utilizada, observamos que os resultados são bastante consistentes com os valores esperados levando em conta experimentos semelhantes \cite{satpathy}, \cite{khoo}. O destaque dos resultados é o bom desempenho do LTP relativo ao LBP, já esperado\cite{khoo}, e o bom desempenho do DRLBP e DRLTP em relação às técnicas tradicionais correspondentes.
+
+
 %IMG:
 %\begin{figure}[h]
 %    \label{fig:formant_synthesizer}
@@ -70,6 +87,11 @@ Algumas imagens do conjunto tiveram de ser inutilizadas por conta da posição d
 
 
 \section{CONCLUSÃO}
+Embora a metodologia de detecção não seja a mais adequada, ela aponta indícios de que a abordagem do DRLBP e DRLTP melhoram a detecção de objetos em uma imagem. Há uma grande ressalva: ao utilizarmos apenas um conjunto bastante específico de imagens (carros), a robustez dos resultados não é tão boa quanto o teste feito com vários conjuntos diferentes. 
+
+Enquanto o uso de LBP como extrator proporcionou a pior taxa de detecção de janelas positivas (0\%), o DRLBP proporcionou uma detecção de 100\% das janelas positiva. Isto pode indicar que incluir informação de contraste na poderação do histograma melhora a caracterização de um objeto. O que confirma a hipótese de Satpathy, que um objeto é bem representado usando-se informações de textura e borda.
+
+ 
 
 
 % Referências

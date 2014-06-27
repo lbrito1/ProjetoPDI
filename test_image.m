@@ -28,11 +28,13 @@ function window_hist = test_image(im, bin, type)
                   end;
             case "rltp"
                   for x = 1:numel(windows)
+                  x
                         window_hist{x} = ltp(windows{x}, bin, "rltp");
                   end;
             case "drltp"
                   number_of_blocks = numel(windows)
                   for x = 1:numel(windows)
+                  drltp_it = x
                         window_hist{x} = drltp(windows{x}, bin);
                   end;
       endswitch;

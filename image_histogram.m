@@ -39,6 +39,7 @@ function h = image_histogram(im, bin, type)
             case "drltp"
                   number_of_blocks = numel(blocks)
                   for x = 1:numel(blocks)
+                        %printf("\n%d de %d blocos DRLTP",x,numel(blocks));
                         %printf("\nDRLTP: %d/%d",x,numel(blocks));
                         block_hist_list{x} = drltp(blocks{x}, bin);
                   end;
@@ -58,6 +59,4 @@ function h = image_histogram(im, bin, type)
                   h(idx++) = blockhist(y);
             end;
       end;
-      
-      %save img_hist.txt h -append
 endfunction;

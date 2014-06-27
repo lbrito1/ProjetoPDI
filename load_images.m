@@ -16,7 +16,7 @@ function imlist = load_images(type)
                         imgs{k} = double(imgs{k});
                   end;
                   
-                  z = 11;
+                  z = 10;
                   
                   path = ('CarData\TestImages\10\');
                   d = dir([path,"*.pgm"]);
@@ -27,7 +27,7 @@ function imlist = load_images(type)
                         imgs{z} = double(imgs{z});
                   end;
                   
-                  z = 101;
+                  z = 100;
                   
                   path = ('CarData\TestImages\100\');
                   d = dir([path,"*.pgm"]);
@@ -37,5 +37,6 @@ function imlist = load_images(type)
                         imgs{z} = imread([path,d(k).name]);
                         imgs{z} = double(imgs{z});
                   end;
+                  imlist = imgs;
       endswitch;
 endfunction;

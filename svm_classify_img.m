@@ -9,12 +9,12 @@ function svm = svm_classify_img(tipo,model,x,y,img,bin)
       
       switch (tipo)
             case "ltp"
-      %            w = image_histogram(window, bin, "ltp");
+                  w = image_histogram(window, bin, "ltp");
             case "rltp"
-       %           w = ltp(window, bin, "rltp");
+                  w = image_histogram(window, bin, "rltp");
             case "drltp"
-        %          w = drltp(window, bin);
+                  w = image_histogram(window, bin,"drltp");
       endswitch;
       
-      %svm = svmpredict([0], w, model);
+      svm = svmpredict([0], w, model);
 endfunction;

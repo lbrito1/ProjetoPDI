@@ -1,0 +1,122 @@
+% Relatório referente ao projeto da disciplina Processamento Digital de Imagens
+% do 1o semestre de 2014, ministrada pelo professor Tsang Ing Ren.
+
+\documentclass[a4paper,twocolumn]{article}
+
+% Pacotes necessários
+\usepackage{times}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[a4paper,margin=2cm,columnsep=1cm]{geometry}
+\usepackage{authblk}
+\usepackage{titlesec}
+\usepackage[pdftex]{graphicx}
+\usepackage{mathtools}
+
+
+\begin{document}
+
+\graphicspath{{images/}}
+\renewcommand{\abstractname}{\normalsize\bfseries\filcenter ABSTRACT}
+\titleformat*{\section}{\normalsize\bfseries\filcenter}
+\titleformat*{\subsection}{\small\bfseries\filcenter}
+\renewcommand{\refname}{\normalsize\bfseries\filcenter REFERENCES}
+\renewcommand{\figurename}{\small Figure}
+\newcommand{\figureref}[1]{\textit{Fig. \ref{fig:#1}}}
+\newcommand{\equationref}[1]{\textit{Eq. \ref{eq:#1}}}
+
+
+\title{\textbf{Detecção de objetos baseada em LBP utilizando características de textura e borda}}
+\author{\textit{Leonardo Brito e Renan Vieira}}
+\affil{Centro de Informática, Universidade Federal de Pernambuco\\
+Recife, PE, Brasil -- www.cin.ufpe.br\\
+\small\texttt{\{lmpb,srfv\}@cin.ufpe.br}}
+\date{Junho, 2014}
+
+\maketitle
+
+
+\begin{abstract}
+    \begin{itshape}
+      This paper intends to replicate the experiments regarding two novel extraction feature techniques used for object recognition. Both are based on the well-established LBP and LTP extraction feature algorithms. By adding border information to LBP and LTP, these new techniques overcome some of the major limitations of both algorithms. Features are tested on the UIUC Car image dataset.\\ 
+
+    \noindent\textbf{keywords}: Object recognition, local binary pattern, local ternary pattern, feature extraction, texture, border
+    \end{itshape}
+\end{abstract}
+
+
+\section{INTRODUÇÃO}
+
+\section{EXPERIMENTAÇÃO}
+\label{rule_based}
+
+Por conta de contingências de tempo, não foi possível replicar perfeitamente a metodologia utilizada em \cite{satpathy}. O conjunto UIUC Car possui 170 imagens de teste com escala igual e 108 imagens com escala variável: escolhemos implementar os testes utilizando apenas o primeiro conjunto, de escala única, por este ser de implementação mais simples. As imagens tem uma ordem de grandeza de 1000 janelas, e cada janela leva cerca de 0,67s para a execução do LBP/LTP e cerca de 60s para a execução do DRLTP. A correta execução das técnicas de extração de características em todas as janelas de uma imagem e em todas as 170 imagens do conjunto levaria, portanto, várias horas, impossibilitando o experimento.
+
+Algumas imagens do conjunto tiveram de ser inutilizadas por conta da posição das janelas onde encontravam-se os carros. Carros com oclusão parcial, na fronteira da imagem, resultam em janelas com valores além das dimensões da imagem. Descontados esses casos, obtemos um total de 71 imagens para teste. Cada imagem possui ao menos um carro, portanto foram testadas 71 janelas com resultado positivo esperado. Devido à já mencionada restrição de tempo, apenas cerca de 20 janelas negativas (sem carro) foram testadas para falsos-positivos.
+
+%IMG:
+%\begin{figure}[h]
+%    \label{fig:formant_synthesizer}
+%    \centering
+%    \includegraphics[scale=0.35]{formant-synthesizer}
+%    \caption{\textit{Speech synthesizer based on a formant synthesis model.}}
+%\end{figure}
+
+
+The selection of good units for synthesis requires an appropriate definition of the target and concatenation costs and effective training of them. Each target and unit in the database has a pitch, power and duration. The closest they are, the best the match. Getting a wider view, the same can be said about a sequence of targets, denoted by $t^n = (t_1, ..., t_n)$, and units, $u^n = (u_1, ..., u_n)$, where each $t_i$ matches a $u_i$, for $i = 1, ..., n$. Now it is possible to properly define the target cost and concatenation cost.
+
+The target cost is defined as a weighted sum of each individual target cost of the target $t_i$ to the instance $u_{ij}$ of the unit $u_i$.
+
+\begin{equation}
+    \label{eq:target_cost}
+    C^t(t_i,u_i) = \displaystyle\sum_{j=1}^{p} w^t_j C^t_j(t_i,u_i)
+\end{equation}
+
+
+\section{CONCLUSÃO}
+
+
+% Referências
+\begin{thebibliography}{5}
+    \bibitem{satpathy}
+      Amit Satpathy, Xudong Jiang, e How-Lung Eng,
+      "LBP-Based Edge-Texture Features for Object Recognition",
+      in \emph{"IEEE Transactions on Image Processing"},
+      v.23 n.5,
+      p1953,
+      Maio 2014.
+
+     \bibitem{ojala_1996}
+     Timo Ojala, Matti Pietikäinen e Topi Mäenpää,
+     \emph{"Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns"}
+     1996.
+     
+     \bibitem{ojala_2002}
+     Timo Ojala,Topi Mäenpää,
+     "Multiresolution Gray-Scale and Rotation Invariant Texture Classification with Local Binary Patterns",
+     in \emph{"IEEE Transactions on Pattern Analysis and Machine Intelligence"},
+     v.24 n.7,
+     p 971,
+     Julho 2002.
+
+     \bibitem{khoo}
+     Taha H. Rassem e Bee Ee Khoo,
+     \emph{"Completed Local Ternary Pattern for Rotation Invariant Texture Classification"},
+     2014.
+     
+      
+     \bibitem{han}
+     Xian-Hua han, Gang Xu e Yen-Wei Chen,
+     "Robust Local Ternary Patterns for Texture Categorization",
+     \emph{"2013 6th International Conference on Biomedical Engineering and Informatics (BMEI 2013)"},
+     2013.
+     
+     
+     
+%    \bibitem{fant}
+%        G. Fant,
+%        ``Acoustic Theory of Speech Production".
+%        \emph{The Hague: Mouton \& Co.}, 1960;
+%        \emph{Walter de Gruyter}, 1970.
+\end{thebibliography}
+\end{document}

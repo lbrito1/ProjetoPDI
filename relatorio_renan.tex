@@ -1,0 +1,126 @@
+% Relatório referente ao projeto da disciplina de Processamento de Imagens,
+% ministrada pelo professor Tsang Ing Ren do Centro de Informática da Universidade Federal de Pernambuco.
+
+\documentclass[a4paper,twocolumn]{article}
+
+% Pacotes necessários
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[a4paper,margin=2cm,columnsep=1cm]{geometry}
+\usepackage{titlesec}
+\usepackage[pdftex]{graphicx}
+
+\graphicspath{{images/}}
+
+\begin{document}
+
+% Definição de comandos
+\newcommand{\defaultsectiontitle}{\small\bfseries}
+\renewcommand{\abstractname}{\defaultsectiontitle ABSTRACT}
+\renewcommand{\refname}{\defaultsectiontitle REFERENCES}
+\titleformat*{\section}{\defaultsectiontitle}
+
+\renewcommand{\figurename}{\footnotesize\itshape Fig.}
+\newcommand{\figureref}[1]{\textit{Fig. \ref{fig:#1}}}
+
+% Metadados do paper
+\title{\textbf{Projeto de Descritores de Textura e Borda em Detecção de Objetos}}
+\author{
+    \textit{Sérgio Renan F Vieira}\\
+    Centro de Informática\\
+    Universidade Federal de Pernambuco\\
+    \texttt{srfv@cin.ufpe.br}
+    \and
+    \textit{Leonardo Mendes P Brito}\\
+    Centro de Informática\\
+    Universidade Federal de Pernambuco\\
+    \texttt{lmbp@cin.ufpe.br}
+    \and
+    \textit{Tsang Ing Ren}\\
+    Centro de Informática\\
+    Universidade Federal de Pernambuco\\
+    \texttt{tir@cin.ufpe.br}
+}
+\date{Junho de 2014}
+
+\maketitle
+
+
+
+% Seções
+\section{Introdução}
+
+A detecção de objetos em imagens constitui uma das fases da implementação de sistemas de reconhecimento de objetos. Nesta fase o objetivo é separar os objetos do fundo da imagem. Os objetos podem estar presentes numa grande variedade de cenários e sujeitos a fatores negativos. Tipicamente os desafios aparecem quando os objetos devem ser detectados sob planos de fundo ruidosos, oclusão ou regiões de diferentes contrastes. Portanto, é crucial escolher uma representação para o objeto a ser detectado que contenha fatores discriminantes de outros objetos e do plano de fundo[Ref 1]. 
+
+As representações de objetos para detecção podem ser classificadas como \textit{esparsa} e \textit{densa}[Ref 2]. As representações esparsas procuram identificar estruturas ao escolher um caminho inteiro de uma imagem ao redor de um ponto. As representações densas atuam em regiões delimitadas em uma janela de detecção.
+
+Uma das mais populares representação densa é o Local Binary Pattern (LBP) - em portuês, Padrão binário local. O LBP é um descritor que codifica em número binário cada pixel de acordo com sua intensidade perante uma vizinhança definida. O uso de histogramas para os códigos LBP traz vantagens por ser um descritor resistente à translação dos histogramas das vizinhanças[ref 1]. 
+
+Além do LBP um outro descritor de características que ganhou popularidade é o Local Ternary Pattern (LTP) - em português, Padrão ternário local, que é uma variação do LBP. O LTP faz uma adaptação ao código LBP que falha sob presença de pixels ruidosos. Sob a uz deste fato, o LTP cria um terceiro padrão. No entanto, ambos os códigos LBP e LTP apresentam duas limitações que prejudicam a detecção de objetos. Eles diferenciam um mesmo objeto sob um fundo brilhante e sob um fundo escuro, o que aumenta as variações intra-classe[Ref 1]. Além disso, eles contém apenas informação de textura dos objetos. Não obstante, os autores de [Ref 1] acreditam que um objeto deve ser representado por meio de informações de textura e bordas. 
+
+Neste sentido, Sathpathy [Ref 1] propôs dois novos descritores o Padrão Local Binário Robusto e Discriminante (do inglês, DRLBP) e o Padrão Ternário Local Robusto e Discriminante (do inglês, DRLTP), que visam superar as limitações do LBP e LTP. Ambas as abordagens são robustas às variações de brilho de um mesmo objeto e contém informação de borda. Elas corrigem o primeiro  problema ao mapear os códigos de um pixel e seu complemento para o mesmo valor. Em relação ao segundo problemas. DRLBP e DRLTP ponderam os bins dos histogramas dos códigos com o gradiente dos pixels.
+
+O objetivo deste trabalho é apresentar uma evidência de que os descritores DRLBP e DRLTP  de fato apresentam ganho na detecção. Para tanto, realizamos um experimento de detecção com uso dos quatro descritores (LBP, DRLB, LTP e DRLTP) comparando-se o desempenho. Usamos uma base de imagens para detecção de carros. Nossos resultados evidenciam melhoras para as duas novas abordagens.
+
+Este trabalho segue a seguinte organização. %Leonardo, aqui tu coloca como tu organizaou o documento. 
+
+
+\section{Padrões Discriminantes e Robustos Binário e Ternário}
+
+\subsection{Limitações do LBP e o DRLBP}
+
+O código LBP de um pixel na posição (x, y) é [Ref 3]:
+\begin{equation}
+    \label{eq:target_cost}
+    LBP_{x,y} = \displaystyle\sum_{b=0}^{B - 1} s(p_{b} - p_{c})2^b
+\end{equation}
+
+Onde B é o número de vizinhos dispostos num círculo de raio R e centrado em (x, y). 
+
+Os códios LBP de um bloco de uma imagem podem ser representados por um histograma. O código LBP tem o problema de codificar um objeto e seu complemento para códigos diferentes. O código LBP é insensível a variações monotônicas de intensidade de pixel num bloco, o que indica apenas a informação de textura de um bloco. Portanto, o LBP é pobre em informação de borda. Sendo assim, Sathpathy promoveu a ponderação dos bins do histograma LBP com o gradiente de um pixel. O i-ésimo bin de um bloco de tamanho MxN
+
+\begin{equation}
+    \label{eq:target_cost}
+    h_{lbp}(i) = \displaystyle\sum_{x=0}^{M - 1} \sum_{y=0}^{N - 1} \omega_{x,y}\delta(LBP_{x,y}, i)
+\end{equation}
+
+Onde $\delta(m, n)$ é igual a 1 quando m = n.
+
+Contudo, nesta codificação um mesmo objeto pode ter dois códigos diferentes quando ele tem suas intensidades invertidas. 
+
+Portanto, Sathpathy promoveu também a definição de mais um histogramas. O histograma de uma versão do LBP robusta a inversão de intensidade:
+
+\begin{equation}
+    \label{eq:target_cost}
+    h_{rlbp}(i) = \displaystyle\ h_{lbp}(i) + h_{lbp}(2^B - 1 - i), 0\leq i \leq 2^{B - 1}
+\end{equation}
+
+Mas essa descrição também implica problemas quando no mesmo bloco há estruturas na presença de outras estruturas diferentes mas com codificação complementar. Portanto os histogramas devem discriminar tais estruturas. Para isso, Sathpathy definiu um novo histograma:
+
+\begin{equation}
+    \label{eq:target_cost}
+    h_{dlbp}(i) = \displaystyle\ |h_{lbp}(i) - h_{lbp}(2^B - 1 - i)|, 0\leq i \leq 2^{B - 1}
+\end{equation}
+
+Dessa maneira, podemos construir um histogramas que agregue a informação de bordas (através da ponderação com o gradiente), robustez a imagens iguais e complementares e discriminação para objetos diferentes. Portanto, defini-se o DRLBP: $h_{rlbp}(i)$ para bins de padrões de 0 a $2^{B - 1}$; $h_{dlbp}(i)$ para bins de padrões no intervalo $2^{B-1} \leq i <2^B$.
+
+Realizando, assim, uma codificação diferente para um só objeto. Além disso, esse tipo de código é insensível a variações monotônicas, o que indica apenas a informação de textura de um bloco. Assim, o LBP é pobre em informação de borda.
+
+Sendo assim Sathpathy promoveu 
+
+Pensando nisso Sathpathy promoveu uma versão robusta ao problema do complemento e 
+
+
+\section{Avaliação Experimental}
+
+\subsection{DRLBP \textit{versus} LBP}
+
+O experimento é dividido nas fases de treinamento e teste. No primeiro estágio são usadas cem imagens de treinamento com tamanho fixo de 40x100. Cinquenta imagens contém carros (positivas) e as demais contém outros tipos de objeto. Para cada imagem extraímos as características LBP e DRLBP. Após a extração de características é realizado o cômputo do histograma em padrões uniformes[Ref 4]. Então é calculado a norma-L1 do histograma seguido do cálculo da raiz quadrada de cada bin.
+
+Na fase de teste, para se fazer a comparação de desempenho entre o descritor LBP e DRLBP, foram usadas vinte e duas imagens de teste. Em cada imagem foram selecionadas duas janelas 40x100: uma com um carro e outra em posição onde não havia carro. Para cada janela foram extraídas as características LBP e DRLBP e, então, a classificação do SVM treinado. Ao final foram computados as taxas de verdadeiros positivos e negativos, falsos positivos e negativos e a taxa de acerto. 
+
+Encontramos os seguintes resultados para as duas abordagens
+
+
+
+\end{document}

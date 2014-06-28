@@ -9,37 +9,54 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english,portuguese]{babel}
 \usepackage[a4paper,margin=2cm,columnsep=1cm]{geometry}
-\usepackage{authblk}
 \usepackage{titlesec}
 \usepackage[pdftex]{graphicx}
 \usepackage{mathtools}
+\usepackage{caption}% http://ctan.org/pkg/caption
+% set up labelformat and labelsep for table
+\captionsetup[table]{format=plain,labelformat=simple,labelsep=period}
 
 \DeclareUnicodeCharacter{00A0}{~}
 \begin{document}
+
 
 \graphicspath{{images/}}
 \renewcommand{\abstractname}{\normalsize\bfseries\filcenter ABSTRACT}
 \titleformat*{\section}{\normalsize\bfseries\filcenter}
 \titleformat*{\subsection}{\small\bfseries\filcenter}
-\renewcommand{\refname}{\normalsize\bfseries\filcenter REFERENCES}
+\renewcommand{\refname}{\normalsize\bfseries\filcenter REFERÊNCIAS}
 \renewcommand{\figurename}{\small Figure}
 \newcommand{\figureref}[1]{\textit{Fig. \ref{fig:#1}}}
 \newcommand{\equationref}[1]{\textit{Eq. \ref{eq:#1}}}
 
 
-\title{\textbf{Detecção de objetos baseada em LBP utilizando características de textura e borda}}
-\author{\textit{Leonardo Brito e Renan Vieira}}
-\affil{Centro de Informática, Universidade Federal de Pernambuco\\
-Recife, PE, Brasil -- www.cin.ufpe.br\\
-\small\texttt{\{lmpb,srfv\}@cin.ufpe.br}}
-\date{Junho, 2014}
 
+
+% Metadados do paper
+\title{\textbf{Detecção de objetos baseada em LBP utilizando características de textura e borda}}
+\author{
+    \textit{Leonardo Mendes P Brito}\\
+    Centro de Informática\\
+    Universidade Federal de Pernambuco\\
+    \texttt{lmbp@cin.ufpe.br}
+    \and
+    \textit{Sérgio Renan F Vieira}\\
+    Centro de Informática\\
+    Universidade Federal de Pernambuco\\
+    \texttt{srfv@cin.ufpe.br}
+    \and
+    \textit{Tsang Ing Ren}\\
+    Centro de Informática\\
+    Universidade Federal de Pernambuco\\
+    \texttt{tir@cin.ufpe.br}
+}
+\date{Junho de 2014}
 \maketitle
 
 
 \begin{abstract}
     \begin{itshape}
-      This paper intends to replicate the experiments regarding two novel extraction feature techniques used for object recognition. Both are based on the well-established LBP and LTP extraction feature algorithms. By adding border information to LBP and LTP, these new techniques overcome some of the major limitations of both algorithms. Features are tested on the UIUC Car image dataset.\\ 
+      This paper aims to replicate the experiments on two novel extraction feature techniques used for object recognition. While the original paper implements both detection and classification, we will focus solely on object detection. Both are based on the well-established LBP and LTP extraction feature algorithms. By adding border information to LBP and LTP, these new techniques overcome some of the major limitations of both algorithms. Features are tested on the UIUC Car image dataset.\\ 
 
     \noindent\textbf{keywords}: Object recognition, local binary pattern, local ternary pattern, feature extraction, texture, border
     \end{itshape}
@@ -47,17 +64,139 @@ Recife, PE, Brasil -- www.cin.ufpe.br\\
 
 
 \section{INTRODUÇÃO}
-
-\section{EXPERIMENTAÇÃO}
 \label{rule_based}
+
+
+A detecção de objetos em imagens constitui uma das fases da implementação de sistemas de reconhecimento de objetos. Nesta fase o objetivo é separar os objetos do fundo da imagem. Os objetos podem estar presentes numa grande variedade de cenários e sujeitos a fatores negativos. Tipicamente os desafios aparecem quando os objetos devem ser detectados sob planos de fundo ruidosos, oclusão ou regiões de diferentes contrastes. Portanto, é crucial escolher uma representação para o objeto a ser detectado que contenha fatores discriminantes de outros objetos e do plano de fundo\cite{satpathy}. 
+
+As representações de objetos para detecção podem ser classificadas como \textit{esparsa} e \textit{densa}\cite{chen}. As representações esparsas procuram identificar estruturas ao escolher um caminho inteiro de uma imagem ao redor de um ponto. As representações densas atuam em regiões delimitadas em uma janela de detecção.
+
+Uma das mais populares representação densa é o Local Binary Pattern (LBP) - em portuês, Padrão binário local. O LBP é um descritor que codifica em número binário cada pixel de acordo com sua intensidade perante uma vizinhança definida. O uso de histogramas para os códigos LBP traz vantagens por ser um descritor resistente à translação dos histogramas das vizinhanças\cite{satpathy}. 
+
+Além do LBP um outro descritor de características que ganhou popularidade é o Local Ternary Pattern (LTP) - em português, Padrão ternário local, que é uma variação do LBP. O LTP faz uma adaptação ao código LBP que falha sob presença de pixels ruidosos. Sob a uz deste fato, o LTP cria um terceiro padrão. No entanto, ambos os códigos LBP e LTP apresentam duas limitações que prejudicam a detecção de objetos. Eles diferenciam um mesmo objeto sob um fundo brilhante e sob um fundo escuro, o que aumenta as variações intra-classe\cite{satpathy}. Além disso, eles contém apenas informação de textura dos objetos. Não obstante, os autores de \cite{satpathy} acreditam que um objeto deve ser representado por meio de informações de textura e bordas. 
+
+Neste sentido, Sathpathy \cite{satpathy} propôs dois novos descritores o Padrão Local Binário Robusto e Discriminante (do inglês, DRLBP) e o Padrão Ternário Local Robusto e Discriminante (do inglês, DRLTP), que visam superar as limitações do LBP e LTP. Ambas as abordagens são robustas às variações de brilho de um mesmo objeto e contém informação de borda. Elas corrigem o primeiro  problema ao mapear os códigos de um pixel e seu complemento para o mesmo valor. Em relação ao segundo problemas. DRLBP e DRLTP ponderam os bins dos histogramas dos códigos com o gradiente dos pixels.
+
+O objetivo deste trabalho é apresentar uma evidência de que os descritores DRLBP e DRLTP  de fato apresentam ganho na detecção. Para tanto, realizamos um experimento de detecção com uso dos quatro descritores (LBP, DRLB, LTP e DRLTP) comparando-se o desempenho. Usamos uma base de imagens para detecção de carros. Nossos resultados evidenciam melhoras para as duas novas abordagens.
+
+Este trabalho segue a seguinte organização: no capítulo 2, definimos os extratores LBP e DRLTP, apresentando as funções e algoritmos auxiliares necessários para o cálculo de ambos, e discutimos as vantagens e desvantagens de cada extrator. Apresentamos os resultados de nossa pesquisa no capítulo 3, descrevendo a metodologia de nossos experimentos e os resultados obtidos. Concluímos o relatório no capítulo 4, resumindo o que aprendemos com o trabalho.
+
+
+\section{PADRÕES DISCRIMINANTES E ROBUSTOS BINÁRIO E TERNÁRIO}
+
+\subsection{Limitações do LBP e o DRLBP}
+
+O código LBP de um pixel na posição (x, y) é \cite{ojala_2002}:
+\begin{equation}
+    \label{eq:target_cost}
+    LBP_{x,y} = \displaystyle\sum_{b=0}^{B - 1} s(p_{b} - p_{c})2^b
+\end{equation}
+
+Onde B é o número de vizinhos dispostos num círculo de raio R e centrado em (x, y). 
+
+Os códios LBP de um bloco de uma imagem podem ser representados por um histograma. O código LBP tem o problema de codificar um objeto e seu complemento para códigos diferentes. O código LBP é insensível a variações monotônicas de intensidade de pixel num bloco, o que indica apenas a informação de textura de um bloco. Portanto, o LBP é pobre em informação de borda. Sendo assim, Sathpathy promoveu a ponderação dos bins do histograma LBP com o gradiente de um pixel. O i-ésimo bin de um bloco de tamanho MxN
+
+\begin{equation}
+    \label{eq:target_cost}
+    h_{lbp}(i) = \displaystyle\sum_{x=0}^{M - 1} \sum_{y=0}^{N - 1} \omega_{x,y}\delta(LBP_{x,y}, i)
+\end{equation}
+
+Onde $\delta(m, n)$ é igual a 1 quando m = n.
+
+Contudo, nesta codificação um mesmo objeto pode ter dois códigos diferentes quando ele tem suas intensidades invertidas. 
+
+Portanto, Sathpathy promoveu também a definição de mais um histogramas. O histograma de uma versão do LBP robusta a inversão de intensidade:
+
+\begin{equation}
+    \label{eq:target_cost}
+    h_{rlbp}(i) = \displaystyle\ h_{lbp}(i) + h_{lbp}(2^B - 1 - i), 0\leq i \leq 2^{B - 1}
+\end{equation}
+
+Mas essa descrição também implica problemas quando no mesmo bloco há estruturas na presença de outras estruturas diferentes mas com codificação complementar. Portanto os histogramas devem discriminar tais estruturas. Para isso, Sathpathy definiu um novo histograma:
+
+\begin{equation}
+    \label{eq:target_cost}
+    h_{dlbp}(i) = \displaystyle\ |h_{lbp}(i) - h_{lbp}(2^B - 1 - i)|, 0\leq i \leq 2^{B - 1}
+\end{equation}
+
+Dessa maneira, podemos construir um histogramas que agregue a informação de bordas (através da ponderação com o gradiente), robustez a imagens iguais e complementares e discriminação para objetos diferentes. Portanto, defini-se o DRLBP: $h_{rlbp}(i)$ para bins de padrões de 0 a $2^{B - 1}$; $h_{dlbp}(i)$ para bins de padrões no intervalo $2^{B-1} \leq i <2^B$.
+
+Realizando, assim, uma codificação diferente para um só objeto. Além disso, esse tipo de código é insensível a variações monotônicas, o que indica apenas a informação de textura de um bloco. Assim, o LBP é pobre em informação de borda.
+
+Sendo assim Sathpathy promoveu 
+
+Pensando nisso Sathpathy promoveu uma versão robusta ao problema do complemento e 
+
+
+\subsection{LTP, RLTP e DRLTP}
+\label{rule_based}
+
+O Local Ternary Pattern \textbf{(LTP)} e suas modificações (RLTP, DRLTP) são análogos ao LBP. A principal vantagem do LTP em relação ao LBP é a robustez daquela em relação a esta: enquanto o LBP tende a ter baixo desempenho quando lida com imagens ruidosas, o LTP é mais robusto por possuir um estado a mais.\cite{han} O LTP é definido como: 
+
+
+Onde T é um limiar escolhido pelo usuário e as demais variáveis são análogas às do LBP.
+
+Como se vê na equação, o LTP tem até $3^{b}$ bins. Para b=8, são $6561$ bins, o que inviabiliza a implementação. Para contornar esse problema, separamos o LTP em dois módulos separados: 
+\begin{equation} \label{ltp_comp}
+\begin{split}
+LTP = (LLBP, ULBP)
+\end{split}
+\end{equation}
+Onde lower LBP (LLBP) e upper LBP (ULBP) são idênticos ao LBP, porém utilizando uma função de diferença modificada, utilizando $f(z) = 1$ se $z>=T$ para o ULBP e $f'(z) = 1$ se $z<=-T$ para o LLBP.
+
+O \textbf{RLTP} é definido também de maneira semelhante ao RLBP, mas utilizando o máximo em vez do mínimo:
+\begin{equation} \label{rltp}
+\begin{split}
+RLTP(x,y) = max(LTP(x,y), -LTP(x,y))
+\end{split}
+\end{equation}
+Afim de evitar os cálculos excessivos decorrentes da equação do LTP, o autor propõe definir o \textbf{DRLTP} como uma concatenação das características extraídas pelo URLBP, LRLBP, UDLBP e LDLBP. Os primeiros dois extratores são definidos como máximo e mínimo, respectivamente, do ULBP e LLBP:
+\begin{equation} \label{urlbp}
+\begin{split}
+URLBP = max(ULBP, LLBP)
+\end{split}
+\end{equation}
+
+\begin{equation} \label{lrlbp}
+\begin{split}
+LRLBP = min(ULBP, LLBP)
+\end{split}
+\end{equation}
+Upper DLBP (UDLBP) e lower DLBP (LDLBP) são implementados de maneira análoga ao DLBP, com a diferença de se utilizar uma função adicional $\lambda$ para selecionar se o ULBP ou LLBP será passado para a função $\delta$:
+\begin{equation} \label{lrlbp}
+\begin{split}
+UDLBP \lambda(p,q) = \begin{cases}p, & p > q\\-q, & p < q\end{cases} 
+\\LDLBP \lambda(p,q) = \begin{cases}q, & p \geq q\\-p, & p < q\end{cases} 
+\end{split}
+\end{equation}
+
+De modo semelhante ao LTP, uma função de 3 estados é utilizada no lugar da função $\delta$ encontrada no DLBP.
+
+O número total de bins do DRLTP é 176: 58 do URLBP, 30 do LRLBP e 88 cada para o URLBP e LRLBP. Além de ser quase 3 vezes maior que o número de bins do LBP, o DRLTP apresenta custo computacional bastante elevado por ter de computar o peso de cada bin, formado pelos produtos do gradiente pelo código LBP.
+
+
+
+
+\section{AVALIAÇÃO EXPERIMENTAL}
+
+\subsection{DRLBP \textit{versus} LBP}
+
+O experimento é dividido nas fases de treinamento e teste. No primeiro estágio são usadas cem imagens de treinamento com tamanho fixo de 40x100. Cinquenta imagens contém carros (positivas) e as demais contém outros tipos de objeto. Para cada imagem extraímos as características LBP e DRLBP. Após a extração de características é realizado o cômputo do histograma em padrões uniformes \cite{chen}. Então é calculado a norma-L1 do histograma seguido do cálculo da raiz quadrada de cada bin.
+
+Na fase de teste, para se fazer a comparação de desempenho entre o descritor LBP e DRLBP, foram usadas vinte e duas imagens de teste. Em cada imagem foram selecionadas duas janelas 40x100: uma com um carro e outra em posição onde não havia carro. Para cada janela foram extraídas as características LBP e DRLBP e, então, a classificação do SVM treinado. Ao final foram computados as taxas de verdadeiros positivos e negativos, falsos positivos e negativos e a taxa de acerto. 
+
+\subsection{Resultados}
+
+Encontramos os seguintes resultados para as duas abordagens.
 
 Por conta de contingências de tempo, não foi possível replicar perfeitamente a metodologia utilizada em \cite{satpathy}. O conjunto UIUC Car possui 170 imagens de teste com escala igual e 108 imagens com escala variável: escolhemos implementar os testes utilizando apenas o primeiro conjunto, de escala única, por este ser de implementação mais simples. As imagens tem uma ordem de grandeza de 1000 janelas, e cada janela leva cerca de 0,67s para a execução do LBP/LTP e cerca de 60s para a execução do DRLTP. A correta execução das técnicas de extração de características em todas as janelas de uma imagem e em todas as 170 imagens do conjunto levaria, portanto, várias horas, impossibilitando o experimento.
 
 Algumas imagens do conjunto tiveram de ser inutilizadas por conta da posição das janelas onde encontravam-se os carros. Carros com oclusão parcial, na fronteira da imagem, resultam em janelas com valores além das dimensões da imagem. Descontados esses casos, obtemos um total de 71 imagens para teste. Cada imagem possui ao menos um carro, portanto foram testadas 71 janelas com resultado positivo esperado. Devido à já mencionada restrição de tempo, apenas cerca de 20 janelas negativas (sem carro) foram testadas para falsos-positivos.
 
-Seguindo a técnica descrita acima, obtemos os seguintes resultados:
+A Tabela 1 resume os resultados obtidos seguindo a técnica descrita acima.
 
 \begin{table}[h]
+      \caption{{\scshape \\Métricas de desempenho das técnicas LBP, DRLBP, LTP e DRLTP}}
       \begin{tabular}{llllll}
             & VP  & FP    & VN    & FN  & ACERTO \\
       DRLBP & 100 & 22,73 & 77,27 & 0   & 88,64  \\
@@ -65,11 +204,14 @@ Seguindo a técnica descrita acima, obtemos os seguintes resultados:
       DRLTP & 100 & -     & -     & 0   & 100    \\
       LTP   & 83  & -     & -     & 17  & 83    
       \end{tabular}
+
 \end{table}
 
 Onde VP = verdadeiro positivo, FP = falso positivo, VN = verdadeiro negativo, FN = falso negativo e ACERTO = taxa de acerto. Todos os valores são porcentagens.
 
-Mesmo dadas as limitações da metodologia utilizada, observamos que os resultados são bastante consistentes com os valores esperados levando em conta experimentos semelhantes \cite{satpathy}, \cite{khoo}. O destaque dos resultados é o bom desempenho do LTP relativo ao LBP, já esperado\cite{khoo}, e o bom desempenho do DRLBP e DRLTP em relação às técnicas tradicionais correspondentes.
+Mesmo dadas as limitações da metodologia utilizada, observamos que os resultados são consistentes com os valores esperados levando em conta experimentos semelhantes \cite{satpathy}, \cite{khoo}: 99,5\% no caso do DRLTP e 98,3\% no caso do DRLBP. Como no LTP e DRLTP testamos apenas janelas positivas (i.e. contendo carro), a taxa de acerto está artificialmente inflada, por não sofrer impacto de eventuais falsos negativos obtidos ao se executar os extratores para janelas negativas. 
+
+O destaque dos resultados é o bom desempenho do LTP relativo ao LBP, já esperado\cite{khoo}, e o bom desempenho do DRLBP e DRLTP em relação às técnicas tradicionais correspondentes.
 
 
 %IMG:
@@ -105,11 +247,6 @@ Enquanto o uso de LBP como extrator proporcionou a pior taxa de detecção de ja
       p1953,
       Maio 2014.
 
-     \bibitem{ojala_1996}
-     Timo Ojala, Matti Pietikäinen e Topi Mäenpää,
-     \emph{"Gray Scale and Rotation Invariant Texture Classification with Local Binary Patterns"}
-     1996.
-     
      \bibitem{ojala_2002}
      Timo Ojala,Topi Mäenpää,
      "Multiresolution Gray-Scale and Rotation Invariant Texture Classification with Local Binary Patterns",
@@ -122,13 +259,21 @@ Enquanto o uso de LBP como extrator proporcionou a pior taxa de detecção de ja
      Taha H. Rassem e Bee Ee Khoo,
      \emph{"Completed Local Ternary Pattern for Rotation Invariant Texture Classification"},
      2014.
-     
       
      \bibitem{han}
      Xian-Hua han, Gang Xu e Yen-Wei Chen,
      "Robust Local Ternary Patterns for Texture Categorization",
      \emph{"2013 6th International Conference on Biomedical Engineering and Informatics (BMEI 2013)"},
      2013.
+
+     \bibitem{chen}
+     J Chen et al., 
+     “WLD: A robust local image descriptor,” 
+     \emph{IEEE Trans. Pattern Anal. Mach. Intell.}, 
+     v. 32 n. 9, 
+     p 1705–1720, 
+     Setembro 2010.
+
      
      
      
